@@ -13,4 +13,4 @@ for calculating average for bits which exist in the auction history.
 One of the main drawback of this realisation - is it's speed. It can be optimised but I decided it isn't in the context of my task, 
 as I don't know any restrictions on MU and AU and don't know the results of competition between my realisation and other bots. 
 Also I approached this task creatively and payed attention more on logic then on other formal things,
-as I am interested in such algorithms  and I wanted to create really strong bot then beautiful code for the time I was recommended to spend on this task.
+as I am interested in such algorithms  and I wanted to create really strong bot than beautiful code for the time I was recommended to spend on this task.
