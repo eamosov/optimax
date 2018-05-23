@@ -103,8 +103,8 @@ public class MinimaxBidder extends AbstractBidder {
         bids.add(bidder.otherCash);
 
         //Make all possible combinations from this state
-        for (int ownBid : bids) {
-            for (int otherBid : concat(otherBids, bids)) {
+        for (int ownBid : new HashSet<>(concat(otherBids.stream().map(it -> it + 1).collect(Collectors.toList()), bids))) {
+            for (int otherBid : new HashSet<>(concat(otherBids, bids))) {
                 if (bidder.ownCash >= ownBid && bidder.otherCash >= otherBid) {
                     final AbstractBidder nextBidder = new AbstractBidder(bidder);
                     nextBidder.bids(ownBid, otherBid);
