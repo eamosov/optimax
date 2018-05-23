@@ -16,10 +16,10 @@ public class MinimaxBidderTest {
 
     private static final Logger log = LoggerFactory.getLogger(MinimaxBidderTest.class);
 
-    private AbstractBidder makeBidder(){
-        final MinimaxBidder bidder =  new MinimaxBidder();
+    private AbstractBidder makeBidder() {
+        final MinimaxBidder bidder = new MinimaxBidder();
         bidder.setLevelLimit(2);
-        return  bidder;
+        return bidder;
     }
 
     private void testMultipleTimes(int startQuantity, int startCash, int times, AbstractBidder bidder1, AbstractBidder bidder2, boolean allowEq) {
@@ -33,8 +33,8 @@ public class MinimaxBidderTest {
         for (int n = 0; n < times; n++) {
             auction.doAuction(startQuantity, startCash, bidder1, bidder2);
 
-//            log.debug("Auction({},{}) {} / {} = {} / {}", startQuantity, startCash, bidder1.name(), bidder2.name(), bidder1
-//                .getOwnWins(), bidder2.getOwnWins());
+            //            log.debug("Auction({},{}) {} / {} = {} / {}", startQuantity, startCash, bidder1.name(), bidder2.name(), bidder1
+            //                .getOwnWins(), bidder2.getOwnWins());
 
             if (bidder1.getOwnWins() > bidder2.getOwnWins()) {
                 wins++;
@@ -49,7 +49,7 @@ public class MinimaxBidderTest {
         MatcherAssert.assertThat(String.format("Auction(%d,%d) stats %s / %s = %d / %d / %d", startQuantity, startCash, bidder1
                                      .name(), bidder2.name(), wins, fails, draws),
                                  wins,
-                                 allowEq ? Matchers.greaterThanOrEqualTo(fails): Matchers.greaterThan(fails));
+                                 allowEq ? Matchers.greaterThanOrEqualTo(fails) : Matchers.greaterThan(fails));
     }
 
     @org.junit.Test
@@ -61,11 +61,25 @@ public class MinimaxBidderTest {
     }
 
     @org.junit.Test
+    public void testWiseBidderAgainstRandomBidder8() {
+        testMultipleTimes(10, 20, 40, makeBidder(), new RandomBidder(0, 8), true);
+        testMultipleTimes(100, 200, 40, makeBidder(), new RandomBidder(0, 8), true);
+    }
+
+    @org.junit.Test
+    public void testWiseBidderAgainstRandomBidder9() {
+        testMultipleTimes(10, 20, 40, makeBidder(), new RandomBidder(0, 9), true);
+        testMultipleTimes(100, 200, 40, makeBidder(), new RandomBidder(0, 9), true);
+    }
+
+    @org.junit.Test
     public void testWiseBidderAgainstRandomBidder() {
 
         for (int i = 0; i < 40; i++) {
-            testMultipleTimes(10, 20, 10, makeBidder(), new RandomBidder(0, i), true);
-            testMultipleTimes(100, 200, 10, makeBidder(), new RandomBidder(0, i), true);
+            if (i != 8 && i != 9) {
+                testMultipleTimes(10, 20, 10, makeBidder(), new RandomBidder(0, i), true);
+                testMultipleTimes(100, 200, 10, makeBidder(), new RandomBidder(0, i), true);
+            }
         }
 
     }
@@ -75,6 +89,7 @@ public class MinimaxBidderTest {
 
         testMultipleTimes(10, 20, 100, makeBidder(), new RandomListBidder(new int[]{0, 1, 8}), true);
         testMultipleTimes(100, 200, 10, makeBidder(), new RandomListBidder(new int[]{0, 1, 8}), true);
+        testMultipleTimes(100, 200, 10, makeBidder(), new RandomListBidder(new int[]{0, 1, 8, 9, 10}), true);
 
     }
 
@@ -91,6 +106,7 @@ public class MinimaxBidderTest {
 
         testMultipleTimes(10, 20, 100, makeBidder(), new RandomListBidder(new int[]{0, 9}), true);
         testMultipleTimes(100, 200, 10, makeBidder(), new RandomListBidder(new int[]{0, 9}), true);
+        testMultipleTimes(100, 200, 10, makeBidder(), new RandomListBidder(new int[]{0, 10}), true);
 
     }
 
@@ -104,7 +120,7 @@ public class MinimaxBidderTest {
 
     @org.junit.Test
     public void testWiseBidder_2_2() {
-        testMultipleTimes(2, 2, 10, makeBidder(), new RandomBidder(0,2), true);
+        testMultipleTimes(2, 2, 10, makeBidder(), new RandomBidder(0, 2), true);
     }
 
     @org.junit.Test
