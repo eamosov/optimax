@@ -102,5 +102,16 @@ public class MinimaxBidderTest {
         }
     }
 
+    @org.junit.Test
+    public void testWiseBidder_2_2() {
+        testMultipleTimes(2, 2, 10, makeBidder(), new RandomBidder(0,2), true);
+    }
+
+    @org.junit.Test
+    public void testWiseBidder_2_2_constant() {
+        for (int n = 0; n < 3; n++) {
+            testMultipleTimes(2, 2, 1, makeBidder(), new ConstantBidder(n), true);
+        }
+    }
 
 }

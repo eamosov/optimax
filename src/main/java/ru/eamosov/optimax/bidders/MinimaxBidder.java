@@ -231,10 +231,6 @@ public class MinimaxBidder extends AbstractBidder {
             return 1;
         }
 
-        if (turns() == 0) {
-            return 0;
-        }
-
         //memo.clear();
 
         //remove old items from decision tree
@@ -260,6 +256,10 @@ public class MinimaxBidder extends AbstractBidder {
             if (gameState.maxMinScore > startQuantity / 2) {
                 return gameState.maxMinScoreBids.get(0);
             }
+        }
+
+        if (turns() == 0) {
+            return 0;
         }
 
         //choose bid with best scores
