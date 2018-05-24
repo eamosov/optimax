@@ -2,7 +2,9 @@ package ru.eamosov.optimax.bidders;
 
 import auction.Bidder;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -46,7 +48,7 @@ public class AbstractBidder implements Bidder {
     protected int otherWins;
 
     //Any previous opponents' bids
-    protected TreeSet<Integer> otherBids = new TreeSet<>();
+    protected Set<Integer> otherBids = new HashSet<>();
 
     public AbstractBidder() {
 
@@ -180,14 +182,15 @@ public class AbstractBidder implements Bidder {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AbstractBidder that = (AbstractBidder) o;
-        return quantity == that.quantity &&
-            startQuantity == that.startQuantity &&
-            startCash == that.startCash &&
-            ownCash == that.ownCash &&
-            otherCash == that.otherCash &&
-            ownWins == that.ownWins &&
-            otherWins == that.otherWins;
+        AbstractBidder bidder = (AbstractBidder) o;
+        return quantity == bidder.quantity &&
+            startQuantity == bidder.startQuantity &&
+            startCash == bidder.startCash &&
+            ownCash == bidder.ownCash &&
+            otherCash == bidder.otherCash &&
+            ownWins == bidder.ownWins &&
+            otherWins == bidder.otherWins &&
+            Objects.equals(otherBids, bidder.otherBids);
     }
 
     @Override

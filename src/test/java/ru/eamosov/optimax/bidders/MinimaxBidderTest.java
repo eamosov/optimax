@@ -18,7 +18,8 @@ public class MinimaxBidderTest {
 
     private AbstractBidder makeBidder() {
         final MinimaxBidder bidder = new MinimaxBidder();
-        bidder.setLevelLimit(2);
+        bidder.setLevelLimit(1);
+        bidder.setQuantityLimit(5);
         return bidder;
     }
 
